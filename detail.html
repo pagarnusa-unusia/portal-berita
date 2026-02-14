@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memuat Berita... - Pagar Nusa Kemang</title>
-    <meta name="description" content="Baca berita terbaru dari PAC Pagar Nusa Kecamatan Kemang.">
+    
+    <meta property="og:title" id="og-title" content="Pagar Nusa Kemang">
+    <meta property="og:description" id="og-description" content="Baca berita terbaru dari PAC Pagar Nusa Kecamatan Kemang.">
+    <meta property="og:image" id="og-image" content="https://via.placeholder.com/800x600?text=Pagar+Nusa">
+    <meta property="og:url" id="og-url" content="">
+    <meta property="og:type" content="article">
+    <meta name="description" id="meta-desc" content="Baca berita terbaru dari PAC Pagar Nusa Kecamatan Kemang.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -16,15 +22,12 @@
         .text-pn { color: var(--pn-green); }
         .border-pn { border-color: var(--pn-green); }
         
-        /* Render konten dari Google Sheet agar tetap rapi */
         #det-text p { margin-bottom: 1.5rem; line-height: 1.8; }
         .share-btn { transition: all 0.2s ease; }
         .share-btn:hover { transform: translateY(-3px); opacity: 0.9; }
 
-        /* Custom Scroll Progress Bar */
         #scroll-progress { position: fixed; top: 0; left: 0; height: 4px; background: #fbbf24; z-index: 60; width: 0%; transition: width 0.1s; }
 
-        /* Dropcap Style */
         .dropcap::first-letter {
             float: left;
             font-family: 'Oswald', sans-serif;
@@ -46,7 +49,7 @@
                 <img src="https://lh3.googleusercontent.com/d/1drM76LlU3sdqpwo-Urq7ZULoyORC0UMQ" class="h-10 group-hover:rotate-12 transition">
                 <span class="nav-font font-bold text-pn uppercase text-xl tracking-tighter">Pagar Nusa Kemang</span>
             </a>
-            <a href="index.html" class="text-pn font-bold text-xs    border-2 border-pn px-4 py-2 rounded-full hover:bg-pn hover:text-white transition duration-300">
+            <a href="index.html" class="text-pn font-bold text-xs border-2 border-pn px-4 py-2 rounded-full hover:bg-pn hover:text-white transition duration-300">
                 Beranda
             </a>
         </div>
@@ -96,7 +99,7 @@
             </div>
             
             <div id="det-text" class="text-gray-700 leading-relaxed text-lg space-y-6 text-justify selection:bg-pn selection:text-white">
-                </div>
+            </div>
             
             <div class="mt-20 border-t border-gray-100 pt-10">
                 <div class="bg-gray-50 p-8 rounded-xl text-center">
@@ -118,7 +121,7 @@
             <div class="mt-20">
                 <h3 class="nav-font text-2xl font-bold text-pn border-b-2 border-pn inline-block mb-8">Berita Terkait</h3>
                 <div id="related-posts" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    </div>
+                </div>
             </div>
         </div>
     </article>
@@ -134,7 +137,6 @@
 
     let currentArticle = null;
 
-    // Hitung Estimasi Waktu Baca
     function calculateReadTime(text) {
         const wordsPerMinute = 200;
         const noOfWords = text.split(/\s+/).length;
@@ -142,7 +144,6 @@
         document.getElementById('read-time').innerText = minutes;
     }
 
-    // Scroll Progress Logic
     window.onscroll = function() {
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -150,7 +151,6 @@
         document.getElementById("scroll-progress").style.width = scrolled + "%";
     };
 
-    // Render Berita Terkait
     function renderRelated(allNews, currentId, currentCat) {
         const container = document.getElementById('related-posts');
         const related = allNews
@@ -190,34 +190,42 @@
 
             if (!currentArticle) throw new Error("Not Found");
 
-            // Update DOM
-            document.title = currentArticle.judul + " - Pagar Nusa Kemang";
+            // --- UPDATE META TAGS UNTUK SHARE WHATSAPP ---
+            const shareTitle = currentArticle.judul;
+            const shareImg = currentArticle.gambar || 'https://via.placeholder.com/800x600?text=Pagar+Nusa';
+            const shareDesc = currentArticle.isi.substring(0, 160).replace(/<[^>]*>?/gm, '') + '...';
+
+            document.title = shareTitle + " - Pagar Nusa Kemang";
+            document.getElementById('og-title').setAttribute('content', shareTitle);
+            document.getElementById('og-image').setAttribute('content', shareImg);
+            document.getElementById('og-description').setAttribute('content', shareDesc);
+            document.getElementById('meta-desc').setAttribute('content', shareDesc);
+            document.getElementById('og-url').setAttribute('content', window.location.href);
+
+            // Update DOM Dasar
             document.getElementById('det-title').innerText = currentArticle.judul;
             document.getElementById('det-cat').innerText = currentArticle.kategori;
             document.getElementById('breadcrumb-cat').innerText = currentArticle.kategori;
             document.getElementById('det-date').innerText = currentArticle.tanggal + " | REDAKSI";
             
             const imgElement = document.getElementById('det-img');
-            imgElement.src = currentArticle.gambar || 'https://via.placeholder.com/800x600?text=Pagar+Nusa';
-            imgElement.alt = currentArticle.judul;
+            imgElement.src = shareImg;
+            imgElement.alt = shareTitle;
 
             // Content Processing
             const contentContainer = document.getElementById('det-text');
             const paragraphs = currentArticle.isi.split('\n').filter(t => t.trim() !== '');
             
             const processedText = paragraphs.map((p, index) => {
-                // Beri class dropcap hanya pada paragraf pertama
                 const dropcapClass = index === 0 ? 'dropcap' : '';
                 return `<p class="${dropcapClass}">${p.trim()}</p>`;
             }).join('');
             
             contentContainer.innerHTML = processedText;
 
-            // Call Improvements
             calculateReadTime(currentArticle.isi);
             renderRelated(res.berita, id, currentArticle.kategori);
 
-            // Transitions
             document.getElementById('loader').classList.add('hidden');
             const contentDiv = document.getElementById('content');
             contentDiv.classList.remove('hidden');
