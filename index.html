@@ -8,148 +8,146 @@
     <meta name="author" content="Infokom Pagar Nusa Kemang">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root { --pn-green: #2d6a4f; --pn-dark: #1b4332; --pn-light: #d8f3dc; }
-        body { font-family: 'Roboto', sans-serif; scroll-behavior: smooth; }
+        body { font-family: 'Roboto', sans-serif; scroll-behavior: smooth; color: #334155; }
         .nav-font { font-family: 'Oswald', sans-serif; }
         .bg-pn { background-color: var(--pn-green); }
         .text-pn { color: var(--pn-green); }
         .border-pn { border-color: var(--pn-green); }
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         
-        /* Optimized Shimmer */
         .shimmer { 
-            background: linear-gradient(90deg, #f0f0f0 25%, #e6e6e6 50%, #f0f0f0 75%); 
+            background: linear-gradient(90deg, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%); 
             background-size: 200% 100%; 
-            animation: shimmer 1.5s infinite linear; 
+            animation: shimmer 2s infinite ease-out; 
         }
         @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 
-        .news-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .news-card:hover { transform: translateY(-5px); }
-        
-        /* Reveal Animation */
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .reveal { opacity: 0; transform: translateY(15px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: var(--pn-green); border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: var(--pn-green); border-radius: 4px; }
 
-        /* Mobile Menu */
-        #mobile-menu { transition: transform 0.3s ease-in-out; }
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link-hover { position: relative; }
+        .nav-link-hover::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: white; transition: width 0.3s ease; }
+        .nav-link-hover:hover::after { width: 100%; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 selection:bg-pn selection:text-white">
+<body class="bg-[#fcfdfd] selection:bg-pn selection:text-white">
 
-    <div id="top-bar" class="bg-gray-100 py-2 text-[10px] text-center uppercase tracking-[0.2em] text-gray-500 font-bold border-b">
+    <div id="top-bar" class="bg-white py-2.5 text-[10px] text-center uppercase tracking-[0.15em] text-gray-400 font-semibold border-b">
         Media Resmi PAC Pagar Nusa Kecamatan Kemang - Kabupaten Bogor
     </div>
 
-    <header class="bg-white py-6 border-b border-gray-50 sticky top-[-1px] z-[60] shadow-sm md:static">
+    <header class="bg-white/95 backdrop-blur-md py-5 border-b border-gray-100 sticky top-0 z-[60] shadow-sm">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <div id="menu-toggle" class="text-3xl cursor-pointer hover:text-pn transition md:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <div id="menu-toggle" class="p-2 -ml-2 cursor-pointer hover:text-pn transition md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
             </div>
 
-            <div class="flex items-center space-x-3 mx-auto md:mx-0">
-                <img src="https://lh3.googleusercontent.com/d/1drM76LlU3sdqpwo-Urq7ZULoyORC0UMQ" alt="Logo" class="h-14 md:h-16 drop-shadow-sm transition-transform hover:rotate-6">
-                <div class="text-left">
-                    <h1 class="text-3xl md:text-4xl font-bold text-pn tracking-tighter leading-none nav-font uppercase">Pagar Nusa</h1>
-                    <p class="text-pn italic font-medium text-sm md:text-lg leading-tight tracking-tight">Pagar NU dan Bangsa</p>
+            <div class="flex items-center space-x-4 mx-auto md:mx-0">
+                <img src="https://lh3.googleusercontent.com/d/1drM76LlU3sdqpwo-Urq7ZULoyORC0UMQ" alt="Logo" class="h-12 md:h-14 drop-shadow-sm">
+                <div class="text-left border-l-2 border-pn/20 pl-4">
+                    <h1 class="text-2xl md:text-3xl font-bold text-pn tracking-tight leading-none nav-font uppercase">Pagar Nusa</h1>
+                    <p class="text-gray-500 font-medium text-xs md:text-sm tracking-wide">Pagar NU dan Bangsa</p>
                 </div>
             </div>
 
-            <div class="relative group hidden md:block">
-                <input id="search-input" type="text" placeholder="Cari berita..." class="absolute right-10 top-1/2 -translate-y-1/2 bg-gray-100 border-none rounded-full px-4 py-1.5 text-sm focus:ring-2 focus:ring-pn outline-none transition-all w-0 group-hover:w-64 focus:w-64 shadow-inner">
-                <div class="text-3xl cursor-pointer hover:text-pn transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            <div class="relative hidden md:block">
+                <div class="flex items-center bg-gray-50 border border-gray-100 rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-pn/20 transition-all">
+                    <input id="search-input" type="text" placeholder="Cari berita..." class="bg-transparent border-none text-sm outline-none w-48 focus:w-64 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </div>
             </div>
         </div>
     </header>
 
-    <nav class="bg-pn sticky top-0 z-50 shadow-lg hidden md:block">
+    <nav class="bg-pn shadow-md hidden md:block">
         <div class="container mx-auto">
-            <ul id="main-nav" class="flex flex-wrap justify-center items-center text-white nav-font uppercase tracking-widest text-sm py-1">
-                <li class="px-6 py-4 animate-pulse">Memuat Menu...</li>
+            <ul id="main-nav" class="flex flex-wrap justify-center items-center text-white nav-font uppercase tracking-widest text-[13px]">
+                <li class="px-6 py-4 opacity-50">Memuat Menu...</li>
             </ul>
         </div>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-y-0 left-0 w-64 bg-pn z-[70] transform -translate-x-full shadow-2xl md:hidden">
-        <div class="p-6">
-            <div class="flex justify-between items-center border-b border-white/20 pb-4">
-                <h2 class="text-white font-bold nav-font text-xl">MENU</h2>
-                <div id="close-menu" class="text-white cursor-pointer">✕</div>
+    <div id="mobile-menu" class="fixed inset-y-0 left-0 w-72 bg-pn z-[70] transform -translate-x-full shadow-2xl md:hidden">
+        <div class="p-8">
+            <div class="flex justify-between items-center border-b border-white/10 pb-6 mb-6">
+                <h2 class="text-white font-bold nav-font text-xl tracking-widest">MENU UTAMA</h2>
+                <div id="close-menu" class="text-white p-2 cursor-pointer hover:bg-white/10 rounded-full transition">✕</div>
             </div>
-            <ul id="mobile-nav-list" class="mt-4 text-white space-y-4 nav-font uppercase tracking-wider text-lg"></ul>
+            <ul id="mobile-nav-list" class="text-white space-y-5 nav-font uppercase tracking-wider text-lg"></ul>
         </div>
     </div>
-    <div id="overlay" class="fixed inset-0 bg-black/50 z-[65] hidden md:hidden"></div>
+    <div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[65] hidden md:hidden"></div>
 
-    <main class="container mx-auto px-4 py-8">
-        <div id="headline-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-            <div class="h-[400px] shimmer rounded-xl"></div>
-            <div class="h-[400px] shimmer rounded-xl"></div>
+    <main class="container mx-auto px-4 py-10">
+        <div id="headline-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            <div class="h-[400px] shimmer rounded-2xl"></div>
+            <div class="h-[400px] shimmer rounded-2xl"></div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div class="lg:col-span-2">
-                <div class="flex items-center justify-between border-b-4 border-pn mb-8">
-                    <h3 id="news-title-trigger" class="text-2xl font-bold inline-block py-2 uppercase nav-font tracking-wide">Berita Terkini</h3>
-                    <div id="search-status" class="text-xs text-gray-400 font-bold italic"></div>
+                <div class="flex items-end justify-between border-b-2 border-gray-100 mb-10 pb-2">
+                    <h3 id="news-title-trigger" class="text-2xl font-bold nav-font tracking-tight border-b-4 border-pn -mb-[10px] pb-2 uppercase">Berita Terkini</h3>
+                    <div id="search-status" class="text-xs text-gray-400 font-semibold mb-2"></div>
                 </div>
                 
-                <div id="news-list" class="space-y-10">
-                    <div class="flex flex-col md:flex-row gap-6 animate-pulse">
-                        <div class="md:w-64 h-44 bg-gray-200 rounded-xl"></div>
+                <div id="news-list" class="space-y-8">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-64 h-48 bg-gray-100 rounded-2xl shimmer"></div>
                         <div class="flex-1 space-y-4">
-                            <div class="h-4 bg-gray-200 w-1/4 rounded"></div>
-                            <div class="h-8 bg-gray-200 w-3/4 rounded"></div>
-                            <div class="h-16 bg-gray-200 w-full rounded"></div>
+                            <div class="h-4 bg-gray-100 w-24 rounded shimmer"></div>
+                            <div class="h-8 bg-gray-100 w-full rounded shimmer"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <aside class="space-y-10">
+            <aside class="space-y-12">
                 <div class="reveal">
-                    <h3 class="text-2xl font-bold border-b-4 border-pn inline-block mb-6 uppercase nav-font text-center w-full">Opini & Khazanah</h3>
-                    <div class="bg-white shadow-[0_10px_30px_rgba(0,0,0,0.05)] p-6 border border-gray-100 rounded-2xl">
-                        <ul id="opinion-list" class="divide-y divide-gray-100"></ul>
+                    <h3 class="text-xl font-bold border-b-2 border-gray-100 mb-6 pb-2 nav-font tracking-tight uppercase">
+                        <span class="border-b-4 border-pn pb-2">Opini & Khazanah</span>
+                    </h3>
+                    <div class="bg-white shadow-sm p-6 border border-gray-100 rounded-2xl">
+                        <ul id="opinion-list" class="divide-y divide-gray-50"></ul>
                     </div>
                 </div>
 
-                <div class="reveal bg-pn p-8 text-white text-center rounded-2xl shadow-2xl border-b-8 border-green-900 transition-all hover:translate-y-[-5px]">
-                    <div class="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <div class="reveal bg-pn p-8 text-white rounded-3xl shadow-xl shadow-green-900/10 relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 opacity-10 transition-transform group-hover:scale-110">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /></svg>
                     </div>
-                    <h4 class="nav-font text-2xl mb-2 font-bold uppercase tracking-wider">Sekretariat PAC</h4>
-                    <p id="alamat-sekre" class="text-sm opacity-90 leading-relaxed min-h-[60px]">Memuat data alamat...</p>
-                    <a id="btn-wa" href="#" target="_blank" class="inline-block mt-6 px-10 py-4 bg-white text-pn font-bold rounded-full text-xs uppercase tracking-widest hover:bg-yellow-400 hover:text-pn transition-all transform active:scale-95 shadow-lg">Hubungi Kami</a>
+                    <h4 class="nav-font text-2xl mb-4 font-bold uppercase tracking-wide">Sekretariat PAC</h4>
+                    <p id="alamat-sekre" class="text-sm opacity-90 leading-relaxed mb-8">Memuat data alamat...</p>
+                    <a id="btn-wa" href="#" target="_blank" class="flex items-center justify-center w-full py-4 bg-white text-pn font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-yellow-400 transition-colors shadow-lg">
+                        Hubungi Kami
+                    </a>
                 </div>
             </aside>
         </div>
     </main>
 
-    <footer class="bg-white border-t-8 border-pn py-16 mt-20 text-center text-gray-500 text-xs">
-        <div class="container mx-auto px-4">
-            <img src="https://lh3.googleusercontent.com/d/1drM76LlU3sdqpwo-Urq7ZULoyORC0UMQ" class="h-24 mx-auto mb-6 opacity-80 filter grayscale hover:grayscale-0 transition duration-700">
-            <p class="font-bold text-pn text-2xl nav-font uppercase mb-2 tracking-[0.3em]">PAC Pagar Nusa Kemang</p>
-            <div id="copyright-text" class="tracking-widest opacity-60 max-w-md mx-auto leading-relaxed border-t pt-6">
-                © 2026 Lembaga IT & Infokom PAC Pagar Nusa Kecamatan Kemang - Kabupaten Bogor
+    <footer class="bg-white border-t border-gray-100 py-16 mt-20">
+        <div class="container mx-auto px-4 text-center">
+            <img src="https://lh3.googleusercontent.com/d/1drM76LlU3sdqpwo-Urq7ZULoyORC0UMQ" class="h-20 mx-auto mb-8 opacity-90">
+            <p class="font-bold text-pn text-2xl nav-font uppercase mb-4 tracking-[0.2em]">PAC Pagar Nusa Kemang</p>
+            <div id="copyright-text" class="text-gray-400 text-[11px] tracking-widest max-w-md mx-auto leading-relaxed border-t border-gray-50 pt-8">
+                © 2026 Lembaga IT & Infokom PAC Pagar Nusa Kecamatan Kemang
             </div>
         </div>
     </footer>
 
 <script>
-    // GANTI DENGAN URL WEB APP GOOGLE SCRIPT ANDA
     const API_URL = 'https://script.google.com/macros/s/AKfycbxrjbI6ZzqcX4zurydbnqAo8GvNdsKzQ0nODvelWFJlPJGAjaUPw7u64CdMNaoZTvZ-/exec'; 
     let allNews = [];
 
-    // Mobile Menu Toggle
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
     const overlay = document.getElementById('overlay');
@@ -158,6 +156,7 @@
     function toggleMenu() {
         menu.classList.toggle('-translate-x-full');
         overlay.classList.toggle('hidden');
+        document.body.classList.toggle('overflow-hidden');
     }
 
     toggle.onclick = toggleMenu;
@@ -168,15 +167,12 @@
         try {
             const response = await fetch(API_URL);
             const res = await response.json();
-            
             if (res.status !== "success") throw new Error(res.message);
             
             allNews = res.berita;
 
-            // 1. Profil Sync (DISINKRONKAN DENGAN KEY BACKEND)
             if(res.profil) {
-                // Key disesuaikan: alamat, wa, copyright (huruf kecil sesuai backend)
-                document.getElementById('alamat-sekre').innerHTML = res.profil.alamat || "Alamat belum diatur di admin.";
+                document.getElementById('alamat-sekre').innerHTML = res.profil.alamat || "Alamat belum diatur.";
                 document.getElementById('copyright-text').innerText = res.profil.copyright || `© ${new Date().getFullYear()} PAC Pagar Nusa Kemang`;
                 
                 if(res.profil.wa) {
@@ -186,7 +182,6 @@
                 }
             }
 
-            // 2. Navigation Render
             const navContainer = document.getElementById('main-nav');
             const mobileNav = document.getElementById('mobile-nav-list');
             navContainer.innerHTML = '';
@@ -198,43 +193,27 @@
                     const link = menuItem[1];
                     const isJoin = label.toLowerCase().includes('join');
                     
-                    // Desktop
                     const li = document.createElement('li');
-                    li.className = "px-6 py-4 hover:bg-green-800 transition-colors cursor-pointer group";
-                    li.innerHTML = `<a href="${link}" class="${isJoin ? 'text-yellow-400 font-bold' : ''} block">${label}</a>`;
+                    li.className = "group";
+                    li.innerHTML = `<a href="${link}" class="px-6 py-5 block transition-colors nav-link-hover ${isJoin ? 'text-yellow-400 font-bold' : 'hover:bg-white/5'}">${label}</a>`;
                     
                     if(link === '#' || link === '') {
-                        li.onclick = (e) => {
-                            e.preventDefault();
-                            filterByCategory(label);
-                        };
+                        li.onclick = (e) => { e.preventDefault(); filterByCategory(label); };
                     }
                     navContainer.appendChild(li);
 
-                    // Mobile
                     const mLi = document.createElement('li');
-                    mLi.className = "border-b border-white/10 pb-2";
-                    mLi.innerHTML = `<a href="${link}">${label}</a>`;
+                    mLi.className = "border-b border-white/5 pb-2";
+                    mLi.innerHTML = `<a href="${link}" class="block py-1 ${isJoin ? 'text-yellow-400' : ''}">${label}</a>`;
                     if(link === '#' || link === '') {
-                        mLi.onclick = (e) => {
-                            e.preventDefault();
-                            toggleMenu();
-                            filterByCategory(label);
-                        };
+                        mLi.onclick = (e) => { e.preventDefault(); toggleMenu(); filterByCategory(label); };
                     }
                     mobileNav.appendChild(mLi);
                 });
             }
-
             renderBerita(allNews);
-
         } catch (error) { 
-            console.error("Fetch Error:", error);
-            document.getElementById('news-list').innerHTML = `
-                <div class="p-8 bg-red-50 text-red-600 rounded-2xl text-center border border-red-100">
-                    <p class="font-bold">Gagal Terhubung ke Pusat Data</p>
-                    <small class="opacity-70">${error.message}</small>
-                </div>`;
+            document.getElementById('news-list').innerHTML = `<div class="p-8 bg-red-50 text-red-600 rounded-2xl text-center border border-red-100 font-medium">Gagal memuat data: ${error.message}</div>`;
         }
     }
 
@@ -242,7 +221,7 @@
         const filtered = allNews.filter(n => n.kategori.toUpperCase() === catName.toUpperCase());
         document.getElementById('news-title-trigger').innerText = catName;
         renderBerita(filtered, true);
-        window.scrollTo({top: 400, behavior: 'smooth'});
+        window.scrollTo({top: 450, behavior: 'smooth'});
     }
 
     function renderBerita(data, isSearch = false) {
@@ -257,59 +236,56 @@
         status.innerText = isSearch ? `Ditemukan ${data.length} hasil` : '';
 
         if (data.length === 0) {
-            newsList.innerHTML = '<div class="text-center py-20 opacity-30 uppercase font-bold tracking-widest">Konten Tidak Ditemukan</div>';
+            newsList.innerHTML = '<div class="text-center py-20 text-gray-300 font-bold tracking-widest uppercase">Konten Tidak Ditemukan</div>';
             return;
         }
 
         data.forEach((item, index) => {
             const detailLink = `detail.html?id=${item.id}`;
             const imgSrc = item.gambar || 'https://placehold.co/800x600/2d6a4f/ffffff?text=Pagar+Nusa';
-            const cleanContent = item.isi ? item.isi.replace(/<[^>]*>?/gm, '') : '';
 
-            // A. Headlines (2 Berita Pertama)
             if (!isSearch && index < 2) {
                 headlineGrid.innerHTML += `
-                    <a href="${detailLink}" class="relative h-[400px] bg-gray-900 overflow-hidden group rounded-2xl shadow-xl reveal">
-                        <img src="${imgSrc}" class="w-full h-full object-cover opacity-70 transition duration-700 group-hover:opacity-100 group-hover:scale-110" loading="lazy">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                    <a href="${detailLink}" class="relative h-[400px] bg-slate-900 overflow-hidden group rounded-3xl shadow-lg reveal">
+                        <img src="${imgSrc}" class="w-full h-full object-cover opacity-60 transition duration-1000 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
-                            <span class="bg-pn px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] rounded-sm">${item.kategori}</span>
-                            <h2 class="text-2xl md:text-3xl font-bold mt-3 group-hover:text-yellow-400 transition-colors leading-tight nav-font uppercase">${item.judul}</h2>
-                            <p class="text-[10px] mt-3 opacity-70 uppercase tracking-widest font-bold flex items-center">${item.tanggal}</p>
+                            <span class="bg-pn px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-md">${item.kategori}</span>
+                            <h2 class="text-2xl md:text-3xl font-bold mt-4 group-hover:text-yellow-400 transition-colors leading-tight nav-font uppercase">${item.judul}</h2>
+                            <p class="text-[10px] mt-4 opacity-60 uppercase tracking-widest font-bold">${item.tanggal}</p>
                         </div>
                     </a>`;
             }
 
-            // B. Sidebar (Opini/Khazanah)
             const cat = item.kategori.toLowerCase();
             if (cat.includes('opini') || cat.includes('khazanah')) {
                 opinionList.innerHTML += `
                     <li class="py-5 group reveal">
-                        <a href="${detailLink}" class="font-bold group-hover:text-pn transition-colors block text-gray-800 text-base mb-1">${item.judul}</a>
-                        <div class="flex items-center justify-between mt-2">
-                             <span class="text-[9px] text-gray-400 uppercase font-black">${item.tanggal}</span>
-                             <span class="text-[9px] bg-gray-100 px-2 py-0.5 rounded text-gray-500 uppercase font-bold">${item.kategori}</span>
+                        <a href="${detailLink}" class="font-bold group-hover:text-pn transition-colors block text-gray-700 text-base leading-snug mb-2">${item.judul}</a>
+                        <div class="flex items-center space-x-3 mt-1">
+                             <span class="text-[9px] text-gray-400 uppercase font-bold tracking-tighter">${item.tanggal}</span>
+                             <span class="text-[9px] text-pn font-bold uppercase tracking-tighter">${item.kategori}</span>
                         </div>
                     </li>`;
             } 
             
-            // C. Main News List
+            // C. Main News List (LAYOUT HORIZONTAL SESUAI GAMBAR)
             if (isSearch || index >= 2) {
                 newsList.innerHTML += `
-                    <a href="${detailLink}" class="news-card flex flex-col md:flex-row gap-6 border-b border-gray-100 pb-10 group reveal">
-                        <div class="md:w-64 h-48 overflow-hidden rounded-2xl shadow-sm bg-gray-200 flex-shrink-0">
-                            <img src="${imgSrc}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" loading="lazy">
+                    <a href="${detailLink}" class="flex gap-4 items-start group reveal border-b border-gray-50 pb-6">
+                        <div class="w-32 h-20 md:w-40 md:h-24 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
+                            <img src="${imgSrc}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" loading="lazy">
                         </div>
-                        <div class="flex-1 py-2">
-                            <span class="text-pn font-bold text-[10px] tracking-[0.2em] uppercase bg-pn/10 px-2 py-1 rounded">${item.kategori}</span>
-                            <h4 class="text-xl md:text-2xl font-bold mt-3 group-hover:text-green-700 transition-colors text-black nav-font uppercase">${item.judul}</h4>
-                            <p class="text-gray-500 mt-3 text-sm line-clamp-2 leading-relaxed">${cleanContent}</p>
-                            <div class="flex items-center mt-6 space-x-3">
-                                <div class="w-8 h-8 bg-pn text-white rounded-full flex items-center justify-center text-[8px] font-black shadow-lg">PN</div>
-                                <div>
-                                    <p class="text-[9px] text-gray-900 font-bold uppercase tracking-widest">Redaksi PAC</p>
-                                    <p class="text-[8px] text-gray-400 font-medium uppercase mt-0.5">${item.tanggal}</p>
-                                </div>
+                        
+                        <div class="flex-1">
+                            <h4 class="text-base md:text-xl font-bold text-gray-900 leading-tight group-hover:text-pn transition-colors line-clamp-2 uppercase nav-font tracking-tight">
+                                ${item.judul}
+                            </h4>
+                            <div class="flex items-center mt-2 text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-400 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest">${item.tanggal}</span>
                             </div>
                         </div>
                     </a>`;
@@ -318,15 +294,10 @@
         initScrollReveal();
     }
 
-    // Search Logic
     document.getElementById('search-input').addEventListener('input', (e) => {
         const val = e.target.value.toLowerCase();
         if(val.length > 2) {
-            const filtered = allNews.filter(n => 
-                n.judul.toLowerCase().includes(val) || 
-                n.kategori.toLowerCase().includes(val) ||
-                (n.isi && n.isi.toLowerCase().includes(val))
-            );
+            const filtered = allNews.filter(n => n.judul.toLowerCase().includes(val) || n.kategori.toLowerCase().includes(val));
             document.getElementById('news-title-trigger').innerText = "Hasil Pencarian";
             renderBerita(filtered, true);
         } else if (val.length === 0) {
@@ -335,15 +306,13 @@
         }
     });
 
-    // Scroll Reveal Animation
     function initScrollReveal() {
-        const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
-        reveals.forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }
 
     document.addEventListener('DOMContentLoaded', fetchContent);
