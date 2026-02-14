@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struktur Organisasi - Pagar Nusa Kemang</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --pn-green: #2d6a4f; --pn-dark: #1b4332; }
+        body { font-family: 'Roboto', sans-serif; color: #334155; }
+        .nav-font { font-family: 'Oswald', sans-serif; }
+        .bg-pn { background-color: var(--pn-green); }
+        .text-pn { color: var(--pn-green); }
+        
+        .reveal { opacity: 0; transform: translateY(15px); transition: all 0.5s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Shimmer loading effect */
+        .shimmer { 
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); 
+            background-size: 200% 100%; 
+            animation: shimmer 1.5s infinite; 
+        }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    </style>
+</head>
+<body class="bg-[#fcfdfd]">
+
+    <header class="bg-white/95 backdrop-blur-md py-5 border-b sticky top-0 z-[60] shadow-sm">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="https://lh3.googleusercontent.com/d/1drM76LlU3sdqpwo-Urq7ZULoyORC0UMQ" alt="Logo" class="h-12">
+                <div class="text-left border-l-2 border-pn/20 pl-4">
+                    <h1 class="text-2xl font-bold text-pn nav-font uppercase leading-none">Pagar Nusa</h1>
+                    <p class="text-gray-500 font-medium text-xs uppercase">Struktural PAC Kemang</p>
+                </div>
+            </div>
+            <a href="index.html" class="text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-pn transition">Beranda</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto text-center mb-16">
+            <h2 class="text-4xl font-bold nav-font text-pn uppercase mb-4">Susunan Pengurus</h2>
+            <div class="w-24 h-1 bg-pn mx-auto"></div>
+        </div>
+
+        <div class="mb-20">
+            <h3 class="text-xl font-bold nav-font text-center uppercase mb-8 tracking-widest text-gray-400">Pengurus Harian</h3>
+            <div id="pengurus-harian-list" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="h-64 shimmer rounded-3xl"></div>
+                <div class="h-64 shimmer rounded-3xl"></div>
+                <div class="h-64 shimmer rounded-3xl"></div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-100 pt-16">
+            <h3 class="text-xl font-bold nav-font text-center uppercase mb-12 tracking-widest text-gray-400">Anggota Pleno / Bagian</h3>
+            <div id="bagian-list" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <div class="h-40 shimmer rounded-2xl"></div>
+                <div class="h-40 shimmer rounded-2xl"></div>
+                <div class="h-40 shimmer rounded-2xl"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // API URL (Gunakan API yang sama dengan index.html)
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxrjbI6ZzqcX4zurydbnqAo8GvNdsKzQ0nODvelWFJlPJGAjaUPw7u64CdMNaoZTvZ-/exec';
+
+        async function fetchStruktural() {
+            try {
+                const response = await fetch(API_URL);
+                const res = await response.json();
+                
+                // Catatan: Di backend (Google Sheets), pastikan Anda menyediakan 
+                // data 'struktural' di dalam JSON response.
+                // Jika belum ada, Anda bisa memfilternya dari data yang tersedia.
+                
+                const dataStruktural = res.struktural || []; 
+                renderStruktural(dataStruktural);
+                
+            } catch (error) {
+                console.error("Gagal memuat data dari spreadsheet:", error);
+                // Fallback jika API gagal (Opsional: Munculkan pesan error di UI)
+            }
+        }
+
+        function renderStruktural(data) {
+            const harianCont = document.getElementById('pengurus-harian-list');
+            const bagianCont = document.getElementById('bagian-list');
+            
+            harianCont.innerHTML = '';
+            bagianCont.innerHTML = '';
+
+            data.forEach(member => {
+                // Link dinamis ke halaman profil dengan parameter eKTA/ID
+                const profilLink = `struktural_profil.html?id=${member.ekta}`;
+                const fotoImg = member.foto || "https://lh3.googleusercontent.com/d/1drM76LlU3sdqpwo-Urq7ZULoyORC0UMQ";
+
+                if(member.tipe === "harian") {
+                    harianCont.innerHTML += `
+                        <a href="${profilLink}" class="member-card reveal group bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition text-center block">
+                            <div class="w-32 h-32 mx-auto mb-4 overflow-hidden rounded-2xl bg-gray-50 border-2 border-pn/10">
+                                <img src="${fotoImg}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            </div>
+                            <h4 class="text-lg font-bold text-gray-800 nav-font uppercase leading-tight">${member.nama}</h4>
+                            <p class="text-pn font-bold text-[10px] uppercase tracking-widest mt-1">${member.jabatan}</p>
+                            <span class="inline-block mt-4 text-[9px] text-gray-300 font-bold border border-gray-100 px-3 py-1 rounded-full group-hover:bg-pn group-hover:text-white transition">LIHAT PROFIL</span>
+                        </a>`;
+                } else {
+                    bagianCont.innerHTML += `
+                        <a href="${profilLink}" class="member-card reveal group bg-white p-4 rounded-2xl border border-gray-50 text-center block">
+                            <div class="w-16 h-16 mx-auto mb-3 overflow-hidden rounded-full border-2 border-gray-100">
+                                <img src="${fotoImg}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            </div>
+                            <h4 class="text-[11px] font-bold text-gray-700 nav-font uppercase leading-tight">${member.nama}</h4>
+                            <p class="text-pn text-[8px] font-bold uppercase mt-0.5">${member.jabatan}</p>
+                        </a>`;
+                }
+            });
+
+            // Re-init Scroll Reveal
+            initScrollReveal();
+        }
+
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchStruktural);
+    </script>
+</body>
+</html>
